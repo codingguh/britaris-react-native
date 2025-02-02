@@ -33,32 +33,36 @@ const NewsDetail = () => {
   };
 
   const playAudio = (url: string) => {
+    // Stop the current audio if it's playing
     if (audio) {
       audio.stop(() => {
-        const newAudio = new Sound(url, null, (error) => {
-          if (error) {
-            console.log("Failed to load the sound", error);
-            return;
-          }
-          newAudio.play();
-          setAudio(newAudio);
-        });
+        console.log("Previous audio stopped.");
+        loadNewAudio(url);
       });
     } else {
-      const newAudio = new Sound(url, null, (error) => {
-        if (error) {
-          console.log("Failed to load the sound", error);
-          return;
-        }
-        newAudio.play();
-        setAudio(newAudio);
-      });
+      loadNewAudio(url);
     }
   };
 
-  // Check if the URL is a video or audio based on file extension
+  const loadNewAudio = (url: string) => {
+    const newAudio = new Sound(url, null, (error) => {
+      if (error) {
+        console.log("Failed to load the sound", error);
+        return;
+      }
+      newAudio.play((success) => {
+        if (success) {
+          console.log("Audio played successfully.");
+        } else {
+          console.log("Audio playback failed.");
+        }
+      });
+      setAudio(newAudio);
+    });
+  };
+
   const isVideo = (url: string) => {
-    return url.includes("mp4") || url.includes("m3u8");
+    return url.includes("mp4v") || url.includes("m3u8");
   };
 
   const isAudio = (url: string) => {
@@ -102,9 +106,17 @@ const NewsDetail = () => {
                       resizeMode="contain"
                     />
                   ) : isAudio(itemDetails.previewUrl) ? (
-                    <TouchableOpacity onPress={() => playAudio(itemDetails.previewUrl)}>
-                      <Text style={styles.previewUrl}>Play Audio</Text>
-                    </TouchableOpacity>
+                    // <TouchableOpacity onPress={() => playAudio(itemDetails.previewUrl)}>
+                    //   <Text style={styles.previewUrl}>
+                    //     {itemDetails.previewUrl}
+                    //   </Text>
+                    // </TouchableOpacity>
+                    <Video
+                    source={{ uri: itemDetails.previewUrl }}
+                    style={styles.videoPlayer}
+                    controls={true}
+                    resizeMode="contain"
+                  />
                   ) : (
                     <Text style={styles.previewUrl}>{itemDetails.previewUrl}</Text>
                   )}

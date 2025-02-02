@@ -2,6 +2,10 @@
 
 This is a starter template for the expo news app tutorial on my YouTube channel.
 
+![Alt text](./screenshoots/image0.jpeg)
+![Alt text](./screenshoots/image2.jpeg)
+
+
 ## Get started
 
 1. Install dependencies

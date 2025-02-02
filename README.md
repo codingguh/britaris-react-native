@@ -3,7 +3,7 @@
 This is a starter template for the expo news app tutorial on my YouTube channel.
 
 ![Alt text](./screenshoots/image0.jpeg)
-![Alt text](./screenshoots/image2.jpeg)
+![Alt text](./screenshoots/image1.jpeg)
 
 
 ## Get started
